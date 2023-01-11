@@ -1,0 +1,27 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) 
+    {
+        int left = 0 , right = 0 ; // Two pointer approach 
+        Set<Character> unique = new HashSet<Character>();
+        int max = 0 ;
+        while(right < s.length())
+        {
+            if(unique.add(s.charAt(right)))
+            {
+                max = Math.max(max , right-left + 1 );        // each time calculating length of window 
+                right++ ;
+            }
+            else
+            {
+                while(s.charAt(left) != s.charAt(right))     // Removing elements until repeated element encounter 
+                {
+                    unique.remove(s.charAt(left));
+                    left++ ;
+                }
+                unique.remove(s.charAt(right));             // Repeated element get removed here 
+                left++ ;
+            }
+        }
+        return max ;   
+    }
+}

@@ -1,0 +1,21 @@
+int subarraysXor(vector<int> &arr, int x)
+{
+      map<int,int>freq ; // to store xor as key and noofTimes it came as a value 
+      int cnt = 0 ;      // no of such subarray possible with given xor as x 
+      int xor1 = 0 ;
+      for(auto it : arr)
+      {
+          xor1 ^= it ;    
+          if(xor1 == x)    // 4 2 2 6 4 if x = 6 then for 4 checked 4 ^ 2 checked 4^2^2 checked and so on 
+          {
+              cnt++ ;
+          }
+          int y = xor1 ^ x ;   // found y so as to count no of subarray whose xor is equal to x and is at end of array . 
+          if(freq.find(y) != freq.end())   // checked whether these y is present in freq map or not 
+          {
+              cnt = cnt + freq[y] ;      // that many subarray are possible 
+          }
+          freq[xor1] += 1 ;           // inserting key as xor and value as no of times it appear 
+      }
+      return cnt ;
+}
